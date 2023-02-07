@@ -6,7 +6,13 @@ class TestController
 {
     public function index()
     {
-        var_dump("c'est good");
+        dump("c'est good");
+        die();
+    }
+
+    public function test()
+    {
+        dump("page test");
         die();
     }
 }
