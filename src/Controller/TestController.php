@@ -6,13 +6,13 @@ class TestController
 {
     public function index()
     {
-        dump("c'est good");
-        die();
+        dd("c'est good");
+        
     }
 
     public function test()
     {
-        dump("page test");
-        die();
+        dd("page test");
+        
     }
 }
