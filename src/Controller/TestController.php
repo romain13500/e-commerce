@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 class TestController
 {
     public function index()
@@ -10,9 +13,9 @@ class TestController
         
     }
 
-    public function test()
+    public function test(Request $request)
     {
-        dd("page test");
-        
+        $age = $request->query->get('age',0);
+        return new Response(" Vous avez $age ans !");    
     }
 }

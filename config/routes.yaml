@@ -5,3 +5,4 @@ index:
 test: 
   path: /test
   controller: App\Controller\TestController::test
+  
