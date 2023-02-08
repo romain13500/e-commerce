@@ -25,9 +25,13 @@ class HelloController{
     /**
      * @Route("/hello/{prenom?World}", name="hello")
      */
-    public function hello($prenom, LoggerInterface $logger, Calculator $calculator, Slugify $slugify, Environment $twig, Detector $detector){
+    public function hello($prenom,  Environment $twig){
 
-        $html = $twig->render('hello.html.twig', ['prenom'=>$prenom]);
+        $html = $twig->render('hello.html.twig', [
+            'prenom'=>$prenom, 
+            'age'=>34,
+            'prenoms'=> ['Malika','Kassim','Lalimate']
+        ]);
         return new Response($html);
 
     }
