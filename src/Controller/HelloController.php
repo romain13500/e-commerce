@@ -27,13 +27,6 @@ class HelloController{
      */
     public function hello($prenom, LoggerInterface $logger, Calculator $calculator, Slugify $slugify, Environment $twig, Detector $detector){
 
-        dump($detector->detect(101));
-        dump($detector->detect(20));
-
-        dump($slugify->slugify("hey"));
-        $logger->info("mon message de log !!");
-        $tva = $calculator->calcul(100);
-        dump($tva);
         $html = $twig->render('hello.html.twig', ['prenom'=>$prenom]);
         return new Response($html);
 
