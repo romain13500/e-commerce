@@ -8,16 +8,8 @@
 </head>
 <body>
     <h1>Salam Aleykoum {{prenom}}!</h1>
-    
-    <ul>
-        {% for age in ages %}
-            {% if age < 18 %}
-                <li>Mineur</li>
-            {% else %}
-                <li>Majeur</li>
-            {% endif %}
-            
-        {% endfor %}
-    </ul>
+
+   <p>Le meilleur joueur est : {{ Joueur.prenom}} {{ Joueur.nom}}</p> 
+   
 </body>
 </html>
