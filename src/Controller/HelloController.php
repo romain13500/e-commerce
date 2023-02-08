@@ -22,10 +22,10 @@ class HelloController{
     /**
      * @Route("/hello/{prenom?World}", name="hello")
      */
-    public function hello($prenom, LoggerInterface $logger, Environment $twig){
+    public function hello($prenom, LoggerInterface $logger, Calculator $calculator, Environment $twig){
 
         $logger->info("mon message de log !!");
-        $tva = $this->calculator->calcul(100);
+        $tva = $calculator->calcul(100);
         dump($tva);
         $html = $twig->render('hello.html.twig', ['prenom'=>$prenom]);
         return new Response($html);
