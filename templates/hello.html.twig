@@ -8,29 +8,16 @@
 </head>
 <body>
     <h1>Salam Aleykoum {{prenom}}!</h1>
-    <h2>Vous avez {{age}} ans </h2>
-
-{# condition de majorité #}
-    {% if age >= 18 %}
-        vous etes majeur
-    {% else %}
-        Vous etes mineur
-    {% endif %}
-
-{# boucle #}
-
+    
     <ul>
-        {% for personne in prenoms %}
-            <li>prenom : {{ personne | upper }}</li>
-            <li>prenom : {{ personne  }}</li>
+        {% for age in ages %}
+            {% if age < 18 %}
+                <li>Mineur</li>
+            {% else %}
+                <li>Majeur</li>
+            {% endif %}
+            
         {% endfor %}
-    </ul>
-        
-    <ul>
-        {% for i in 1..10 %}
-            <li> Numero {{i}}</li>
-        {% endfor %}
-
     </ul>
 </body>
 </html>
