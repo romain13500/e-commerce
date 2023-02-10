@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Taxes\Calculator;
 use App\Taxes\Detector;
-use Cocur\Slugify\Slugify;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
