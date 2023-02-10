@@ -2,45 +2,56 @@
 
 namespace App\Controller;
 
-use App\Taxes\Calculator;
-use App\Taxes\Detector;
-use Psr\Log\LoggerInterface;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
 class HelloController{
 
-
-    protected $logger;
-    protected $calculator;
-    
-    public function __construct(LoggerInterface $logger, Calculator $calculator)
+    protected $twig;
+    public function __construct(Environment $twig)
     {
-        $this->logger = $logger;
-        $this->calculator = $calculator;
+        $this->twig = $twig;
     }
+
+
+  protected function render(string $path, array $variables = []){
+
+        $html = $this->twig->render($path, $variables);
+        return new Response($html);
+    }
+   
 
     /**
      * @Route("/hello/{prenom?World}", name="hello")
      */
-    public function hello($prenom,  Environment $twig){
+    public function hello($prenom){
 
-        $html = $twig->render('hello.html.twig', [
-            'prenom'=>$prenom, 
-            'Joueur1'=>[
-                'prenom'=> 'Zinedine',
-                'nom'=> 'Zidane',
-                'age'=> 43     
-            ],
-            'Joueur2'=>[
-                'prenom'=> 'Didier',
-                'nom'=> 'Drogba',
-                'age'=> 40
-            ]
-        ]);
+        // $html = $this->twig->render('hello.html.twig', [
+        //     'prenom'=>$prenom, 
+        // ]);
         
-        return new Response($html);
+        // return new Response($html);
+
+        return $this->render('hello.html.twig', [
+            'prenom' => $prenom
+        ]);
 
     }
+
+    /**
+     * @Route("/example", name="example")
+     */
+    public function example(){
+
+        
+        return $this->render('example.html.twig', [
+
+            'age' => 34
+        ]);
+
+    }
+
+    
 }
