@@ -2,25 +2,31 @@
 
 namespace App\Controller;
 
-
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
-class HelloController{
+class HelloController extends AbstractController {
 
-    protected $twig;
-    public function __construct(Environment $twig)
-    {
-        $this->twig = $twig;
-    }
+    // ************** INUTILE AVEC "extends AbstractController ***************
 
 
-  protected function render(string $path, array $variables = []){
+        // protected $twig;
+        // public function __construct(Environment $twig)
+        // {
+        //     $this->twig = $twig;
+        // }
 
-        $html = $this->twig->render($path, $variables);
-        return new Response($html);
-    }
+
+        //   protected function render(string $path, array $variables = []){
+
+        //         $html = $this->twig->render($path, $variables);
+        //         return new Response($html);
+        //     }
+
+
+    // ***********************************************************************************************
    
 
     /**
