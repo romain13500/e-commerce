@@ -3,8 +3,11 @@
     {% block body %}
 
          <h1>Salam Aleykoum {{prenom}}!</h1>
+         <h2><strong>Nos Joueurs</strong></h2>
 
-        <p>Le meilleur joueur est : {{ Joueur.prenom}} {{ Joueur.nom}}</p> 
+        {% include "_joueur.html.twig" with {"Joueur": Joueur1} %}
+        {% include "_joueur.html.twig" with {"Joueur": Joueur2} %}
+        
         
     {% endblock %}
         {# remplace l'onglet welcome par hello #}
