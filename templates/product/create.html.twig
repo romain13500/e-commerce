@@ -1,5 +1,6 @@
 {% extends "base.html.twig" %}
 
+
 {% block title %}
     Création d'un produit
 {% endblock %}
@@ -9,23 +10,17 @@
 
     {{form_start(formView)}}
 
-    {{form_errors(formView)}}
-
     <div class="row">
         <div class="col">
-             {{ form_row(formView.name) }}
+        
+            {{ form_row(formView.name) }}
              {{ form_row(formView.price) }}
         </div>
         <div class="col">
-            {{ form_row(formView.shortDescription) }}
             {{ form_row(formView.category) }}
+            {{ form_row(formView.shortDescription) }}
         </div>
     </div>
-
-    
-    
-    
-    
 
     <button type="submit" class="btn btn-info">
         <i class="fas fa-save"></i>
@@ -35,3 +30,4 @@
     {{ form_end(formView)}}
 
 {% endblock %}
+
