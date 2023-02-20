@@ -5,6 +5,10 @@ namespace App\Controller;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,10 +54,29 @@ class ProductController extends AbstractController
 
         $builder = $factory->createBuilder();
 
-        $builder->add('name')
-            ->add('shortDescription')
-            ->add('price')
-            ->add('category');
+        $builder->add('name', TextType::class, [
+            'label' => 'Nom du produit',
+            'attr' => ['class'=> 'form-control', 'placeholder' => 'Entrez le nom du produit']
+
+        ])
+            ->add('shortDescription', TextareaType::class, [
+                'label' => 'Description courte',
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Description du produit']
+            ])
+            ->add('price', MoneyType::class, [
+                'label' => 'Prix',
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Entrez un prix']
+            ])
+            ->add('category', ChoiceType::class, [
+                'label' => 'Catégorie',
+                'attr' => ['class' => 'form-control'],
+                'placeholder' => '-- Choisir une catégorie --',
+                'choices' => [
+                    'Catégorie 1' => 1,
+                    'Catègorie 2' => 2,
+                    'Catégorie 3' => 3
+                ]
+        ]);
 
         $form = $builder->getForm();
         $formView = $form->createView();
