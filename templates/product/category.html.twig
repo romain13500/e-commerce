@@ -6,8 +6,13 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Catégorie : {{ category.name }}</h1>
 
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+        <li class="breadcrumb-item active">{{category.name}}</li>
+        
+    </ol>
+    <h1>Catégorie : {{ category.name }}</h1>
     <div class="row">
         {% for p in category.products %}
           <div class="col-3">
