@@ -7,8 +7,8 @@
 {% block body %}
 
     <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
-    <li class="breadcrumb-item"><a href="#">{{product.category.name}}</a></li>
+    <li class="breadcrumb-item"><a href="{{path('homepage')}}">Acceuil</a></li>
+    <li class="breadcrumb-item"><a href="{{path('product_category', {'slug': product.category.slug})}}">{{product.category.name}}</a></li>
     <li class="breadcrumb-item active">{{product.name}}</li>
     </ol>
     <h1>Page de {{ product.name }} ({{product.price / 100}})€</h1> 
