@@ -30,9 +30,8 @@ class AppFixtures extends Fixture
             $category->setName($faker->department)
                 ->setSlug(strtolower($this->slugger->slug($category->getName()
             )));
-            $manager->persist($category);
-        }
-
+            $manager->persist($category);  
+            
             for ($p=0; $p < mt_rand(15, 20); $p++) { 
                 $product = new Product;
                 $product->setName($faker->productName)
@@ -45,6 +44,7 @@ class AppFixtures extends Fixture
     
                 $manager->persist($product);
             } 
+        }
         
         $manager->flush();
     }
