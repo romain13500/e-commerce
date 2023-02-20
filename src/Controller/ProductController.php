@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Repository\CategoryRepository;
+use App\Entity\Category;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Repository\CategoryRepository;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
 
 class ProductController extends AbstractController
 {
@@ -66,20 +67,17 @@ class ProductController extends AbstractController
             ->add('price', MoneyType::class, [
                 'label' => 'Prix',
                 'attr' => ['class' => 'form-control', 'placeholder' => 'Entrez un prix']
-            ]);
+            ])
 
 
                 // boucle sur category de la BDD
 
-            $option = [];
-            foreach ($categoryRepository->findAll() as $category) {
-                $option[$category->getName()] = $category->getId();
-            }
-            $builder->add('category', ChoiceType::class, [
+            ->add('category', EntityType::class, [
                 'label' => 'Catégorie',
                 'attr' => ['class' => 'form-control'],
                 'placeholder' => '-- Choisir une catégorie --',
-                'choices' => $option
+                'class' => Category::class,
+                'choice_label' => 'name'
             ]
         );
 
