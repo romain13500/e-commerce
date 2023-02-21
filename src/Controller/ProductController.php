@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Entity\Category;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -56,7 +57,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/admin/product/create", name="product_create")
      */
-    public function create(FormFactoryInterface $factory, Request $request, SluggerInterface $slugger){
+    public function create(FormFactoryInterface $factory, Request $request, SluggerInterface $slugger, EntityManagerInterface $em){
 
 
         $builder = $factory->createBuilder(FormType::class, null, [
@@ -99,6 +100,9 @@ class ProductController extends AbstractController
 
             $product = $form->getData();
             $product->setSlug(strtolower($slugger->slug($product->getName())));
+
+            $em->persist($product);
+            $em->flush();
 
             // $product = new Product;
             // $product->setName($data['name'])
