@@ -15,7 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProductController extends AbstractController
 {
@@ -54,7 +56,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/admin/product/create", name="product_create")
      */
-    public function create(FormFactoryInterface $factory, Request $request){
+    public function create(FormFactoryInterface $factory, Request $request, SluggerInterface $slugger){
 
 
         $builder = $factory->createBuilder(FormType::class, null, [
@@ -76,7 +78,10 @@ class ProductController extends AbstractController
             ])
 
 
-                // boucle sur category de la BDD
+            ->add('mainPicture', UrlType::class, [
+                'label' => 'Image du produit',
+                'attr' => ['placeholder' => 'Entrez une URL d\'image ']
+            ])
 
             ->add('category', EntityType::class, [
                 'label' => 'Catégorie',
@@ -93,6 +98,7 @@ class ProductController extends AbstractController
         if($form->isSubmitted()){
 
             $product = $form->getData();
+            $product->setSlug(strtolower($slugger->slug($product->getName())));
 
             // $product = new Product;
             // $product->setName($data['name'])
