@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -60,38 +61,9 @@ class ProductController extends AbstractController
     public function create(FormFactoryInterface $factory, Request $request, SluggerInterface $slugger, EntityManagerInterface $em){
 
 
-        $builder = $factory->createBuilder(FormType::class, null, [
-            'data_class' => Product::class
-        ]);
+        $builder = $factory->createBuilder(ProductType::class);
 
-        $builder->add('name', TextType::class, [
-            'label' => 'Nom du produit',
-            'attr' => ['placeholder' => 'Entrez le nom du produit']
-
-        ])
-            ->add('shortDescription', TextareaType::class, [
-                'label' => 'Description courte',
-                'attr' => ['placeholder' => 'Description du produit']
-            ])
-            ->add('price', MoneyType::class, [
-                'label' => 'Prix',
-                'attr' => ['placeholder' => 'Entrez un prix']
-            ])
-
-
-            ->add('mainPicture', UrlType::class, [
-                'label' => 'Image du produit',
-                'attr' => ['placeholder' => 'Entrez une URL d\'image ']
-            ])
-
-            ->add('category', EntityType::class, [
-                'label' => 'Catégorie',
-                'placeholder' => '-- Choisir une catégorie --',
-                'class' => Category::class,
-                'choice_label' => 'name'
-            ]
-        );
-
+    
         $form = $builder->getForm();
 
         $form->handleRequest($request);
@@ -104,16 +76,7 @@ class ProductController extends AbstractController
             $em->persist($product);
             $em->flush();
 
-            // $product = new Product;
-            // $product->setName($data['name'])
-            //     ->setShortDescription($data['shortDescription'])
-            //     ->setPrice($data['price'])
-            //     ->setCategory($data['category']);
-
-                dd($product);
         }
-        
-        
 
         $formView = $form->createView();
 
