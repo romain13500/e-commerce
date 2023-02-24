@@ -33,7 +33,8 @@ class ProductType extends AbstractType
                 ])
                 ->add('price', MoneyType::class, [
                     'label' => 'Prix',
-                    'attr' => ['placeholder' => 'Entrez un prix']
+                    'attr' => ['placeholder' => 'Entrez un prix'],
+                    'divisor' => 100
                 ])
 
 
@@ -51,7 +52,7 @@ class ProductType extends AbstractType
                     }
                 ]);
 
-                $builder->get('price')->addModelTransformer(new CentimesTransformer);
+                // $builder->get('price')->addModelTransformer(new CentimesTransformer);
                     
 
             //         // *** EVENTLISTENER BEFORE AND AFTER FORM SUBMIT
