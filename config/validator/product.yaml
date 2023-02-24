@@ -1,0 +1,14 @@
+App\Entity\Product:
+    properties:
+        name:
+            - NotBlank: { message: 'Le nom du produit est obligatoire' }
+            - Length: { min: 3, max: 255, minMessage: 'Le nom du produit doit faire au moins 3 caractères', maxMessage: 'Le nom du produit doit faire au plus 255 caractères' }
+        price:
+            - NotBlank: { message: 'Le prix du produit est obligatoire' }
+            - Type: { type: 'numeric' }
+        # shortDescription:
+        #     - NotBlank: ~
+        #     - Length: { min: 3, max: 255 }
+        # category:
+        #     - NotBlank: ~
+        #     - Type: { type: 'numeric' }
