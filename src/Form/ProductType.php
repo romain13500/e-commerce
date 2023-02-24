@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Form\DataTransformer\CentimesTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -50,20 +51,8 @@ class ProductType extends AbstractType
                     }
                 ]);
 
-                $builder->get('price')->addModelTransformer(new CallbackTransformer( 
-                    function($value){
-                        if ($value === null) {
-                            return;
-                        }
-                        return $value / 100;
-                    },
-                    function($value){
-                        if ($value === null) {
-                            return;
-                        }
-                        return $value * 100;
-                    }
-                ));
+                $builder->get('price')->addModelTransformer(new CentimesTransformer);
+                    
 
             //         // *** EVENTLISTENER BEFORE AND AFTER FORM SUBMIT
 
