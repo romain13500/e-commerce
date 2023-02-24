@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -49,29 +50,44 @@ class ProductType extends AbstractType
                     }
                 ]);
 
-                    // *** EVENTLISTENER BEFORE AND AFTER FORM SUBMIT
-                    
-            $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
-                $form = $event->getForm();
+                $builder->get('price')->addModelTransformer(new CallbackTransformer( 
+                    function($value){
+                        if ($value === null) {
+                            return;
+                        }
+                        return $value / 100;
+                    },
+                    function($value){
+                        if ($value === null) {
+                            return;
+                        }
+                        return $value * 100;
+                    }
+                ));
 
-                /** @var Product */ 
-                $product = $event->getData();
+            //         // *** EVENTLISTENER BEFORE AND AFTER FORM SUBMIT
 
-                    // CONVERTION CTS/€ FOR THE FORM
-                if($product->getPrice() !== null){
-                   $product->setPrice($product->getPrice() / 100); 
-                }
+            // $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
+            //     $form = $event->getForm();
+
+            //     /** @var Product */ 
+            //     $product = $event->getData();
+
+            //         // CONVERTION CTS/€ FOR THE FORM
+            //     if($product->getPrice() !== null){
+            //        $product->setPrice($product->getPrice() / 100); 
+            //     }
                 
-            });
+            // });
 
-                // CONVERTION €/CTS FOR BDD AFTER SUBMIT
-            $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-                $product = $event->getData();
+            //     // CONVERTION €/CTS FOR BDD AFTER SUBMIT
+            // $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            //     $product = $event->getData();
                 
-                if($product->getPrice() !== null) {
-                    $product->setPrice($product->getPrice() * 100);
-                }
-            });
+            //     if($product->getPrice() !== null) {
+            //         $product->setPrice($product->getPrice() * 100);
+            //     }
+            // });
         
     }
 
