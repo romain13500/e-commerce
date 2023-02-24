@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ProductType extends AbstractType
 {
@@ -20,8 +21,7 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom du produit',
-                'attr' => ['placeholder' => 'Entrez le nom du produit']
-
+                'attr' => ['placeholder' => 'Entrez le nom du produit'],
             ])
                 ->add('shortDescription', TextareaType::class, [
                     'label' => 'Description courte',
@@ -30,7 +30,7 @@ class ProductType extends AbstractType
                 ->add('price', MoneyType::class, [
                     'label' => 'Prix',
                     'attr' => ['placeholder' => 'Entrez un prix'],
-                    'divisor' => 100
+                    'divisor' => 100,
                 ])
 
 
