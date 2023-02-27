@@ -3,6 +3,7 @@
         "authenticators",
         "Bezhanov",
         "faker",
-        "slugger"
+        "slugger",
+        "twig"
     ]
 }
