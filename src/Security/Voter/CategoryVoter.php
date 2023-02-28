@@ -11,15 +11,15 @@ class CategoryVoter extends Voter
     public const EDIT = 'POST_EDIT';
     public const VIEW = 'POST_VIEW';
 
-    protected function supports(string $attribute, $subject): bool
+    protected function supports($attribute, $subject)
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT, self::VIEW])
+        return in_array($attribute, ['CAN_EDIT'])
             && $subject instanceof \App\Entity\Category;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
@@ -29,16 +29,11 @@ class CategoryVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case self::EDIT:
+            case 'CAN_EDIT':
                 // logic to determine if the user can EDIT
                 // return true or false
-                break;
-            case self::VIEW:
-                // logic to determine if the user can VIEW
-                // return true or false
-                break;
+                return $subject->getOwner() === $user;
         }
-
         return false;
     }
 }
