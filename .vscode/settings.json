@@ -3,6 +3,7 @@
         "Authenticator",
         "authenticators",
         "Bezhanov",
+        "cart",
         "faker",
         "Form",
         "slugger",
