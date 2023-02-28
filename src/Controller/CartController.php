@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,7 +38,9 @@ class CartController extends AbstractController
         //  6 - Enregistrer le tableau
         $session->set('cart', $cart);
 
-        // dd($session->get('cart'));
+        /** @var FlashBag */
+        $flashBag = $session->getBag('flashes');
+        $flashBag->add('success', "Le produit a été ajouté au panier ! ");
 
         return $this->redirectToRoute('product_show', [
             'category_slug' => $product->getCategory()->getSlug(),
