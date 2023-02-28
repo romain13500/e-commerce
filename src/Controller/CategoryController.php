@@ -56,31 +56,45 @@ class CategoryController extends AbstractController
    /**
     * @Route("/admin/category/{id}/edit", name="category_edit")
     */
-   public function edit($id, CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $em, Security $security){
-        // 
-    $user = $security->getUser();
-    if ($user === null) {
-        return $this->redirectToRoute('security_login');
-    }
-    if (!in_array("ROLE_ADMIN", $user->getRoles())) {
-        throw new AccessDeniedHttpException("Vous n'avez pas le droit d'accéder a cette page !");
-    }
+   public function edit($id, CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $em)
+   {
 
-    $category = $categoryRepository->find($id);
+            // **** ACCESS EDIT CATEGORY
 
-    $form = $this->createForm(CategoryType::class, $category);
+            $this->denyAccessUnlessGranted("ROLE_ADMIN", null, "Vous n'avez pas le droit d'accéder a cette page !");
 
-    $form->handleRequest($request);
+        
+        
+            //  **** OU (avec ajout de "Security $security" livré dans le container *****
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        $em->flush();
-    }
+        //     $user = $security->getUser();
 
-    $formView = $form->createView();
+        // if ($user === null) {
+        //     return $this->redirectToRoute('security_login');
+        // }
 
-    return $this->render('category/edit.html.twig', [
-        'category' => $category,
-        'formView' => $formView
-    ]);
+        // if ($security->isGranted("ROLE_ADMIN") === false) {
+        //  throw new AccessDeniedHttpException("Vous n'avez pas le droit d'accéder a cette page !");
+        // }
+
+            //  ****************
+
+
+        $category = $categoryRepository->find($id);
+
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+         $em->flush();
+        }
+
+        $formView = $form->createView();
+
+        return $this->render('category/edit.html.twig', [
+            'category' => $category,
+            'formView' => $formView
+        ]);
    }
 }
