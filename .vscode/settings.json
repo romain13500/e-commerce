@@ -4,6 +4,7 @@
         "authenticators",
         "Bezhanov",
         "cart",
+        "detailecart",
         "faker",
         "Form",
         "requirements",
