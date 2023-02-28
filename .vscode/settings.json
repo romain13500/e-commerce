@@ -6,6 +6,7 @@
         "cart",
         "faker",
         "Form",
+        "requirements",
         "slugger",
         "switch",
         "twig"

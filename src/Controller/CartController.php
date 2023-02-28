@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,10 +11,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     /**
-     * @Route("/cart/add/{id}", name="cart_add")
+     * @Route("/cart/add/{id}", name="cart_add", requirements={"id":"\d+"} )
      */
-    public function add($id, Request $request)
+    public function add($id, Request $request, ProductRepository $productRepository)
     {
+        //  0 - Sécurisation : est ce que le produit existe
+        $product = $productRepository->find($id);
+        if (!$product) {
+            throw $this->createNotFoundException("Le Produit $id n'existe pas !");
+        }
+        
         //  1 - Retrouver le panier dans la session (sous forme de tableau)
         //  2 - Si inexistant, prendre un tableau vide
         $cart = $request->getSession()->get('cart', []);
@@ -30,7 +37,10 @@ class CartController extends AbstractController
         //  6 - Enregistrer le tableau
         $request->getSession()->set('cart', $cart);
 
-        dd($request->getSession()->get('cart'));
+        return $this->redirectToRoute('product_show', [
+            'category_slug' => $product->getCategory()->getSlug(),
+            'slug' => $product->getSlug()
+        ]);
 
     }
 }
