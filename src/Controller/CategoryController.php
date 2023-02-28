@@ -63,25 +63,6 @@ class CategoryController extends AbstractController
 
         $category = $categoryRepository->find($id);
 
-        if (!$category) {
-            throw new NotFoundHttpException("Cette catégorie n'existe pas !");
-        }
-
-        // $security->isGranted('CAN_EDIT', $category);
-        $this->denyAccessUnlessGranted('CAN_EDIT', $category, "Vous ne pouvez pas modifier cette catégorie !");
-
-
-
-        // $user = $this->getUser(); // **** = $security->getUser()
-
-        // if (!$user) {
-        //     return $this->redirectToRoute("security_login");
-        // }
-
-        // if ($user !== $category->getOwner() ) {
-        //     throw new AccessDeniedHttpException("Vous ne pouvez pas modifier cette catégorie !");
-        // }
-
         $form = $this->createForm(CategoryType::class, $category);
 
         $form->handleRequest($request);
