@@ -1,9 +1,12 @@
 {
     "cSpell.words": [
+        "Authenticator",
         "authenticators",
         "Bezhanov",
         "faker",
+        "Form",
         "slugger",
+        "switch",
         "twig"
     ]
 }
