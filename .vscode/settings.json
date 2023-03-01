@@ -8,6 +8,7 @@
         "faker",
         "Form",
         "PAID",
+        "postcode",
         "purchases",
         "requirements",
         "slugger",
