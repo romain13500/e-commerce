@@ -7,6 +7,7 @@
         "detailecart",
         "faker",
         "Form",
+        "PAID",
         "purchases",
         "requirements",
         "slugger",
